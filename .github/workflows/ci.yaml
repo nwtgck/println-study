@@ -1,0 +1,20 @@
+on: push
+jobs:
+  test:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v3
+    # NOTE: Format-Hex ignores new lines
+    - name: Python3 (print)
+      run: python3 python3\print.py| go run printhex.go
+    - name: Java (System.out.println)
+      run: cd java && javac Main.java && java Main | go run ..\printhex.go
+    - name: Node.js (console.log)
+      run: node nodejs\console-log.js | go run printhex.go
+    - name: Go (fmt.Println)
+      run: go run go\fmt-println.go | go run printhex.go
+    - name: Rust (println!)
+      run: rustc .\rust\rust-println.rs && .\rust-println | go run printhex.go
+    # Swift not available in GitHub Actions
+    # - name: Swift (print)
+    #   run: swift swift\print.swift | go run printhex.go
